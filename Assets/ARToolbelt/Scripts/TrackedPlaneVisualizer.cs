@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using GoogleARCore;
 using GoogleARCoreInternal;
 
 namespace com.abstractron.ARToolbelt.ARCore
