@@ -1,52 +1,29 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="HelloARController.cs" company="Google">
-//
-// Copyright 2017 Google Inc. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// </copyright>
-//-----------------------------------------------------------------------
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+using GoogleARCore;
 
-namespace GoogleARCore.HelloAR
+namespace com.abstractron.Pokar
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.Rendering;
-    using GoogleARCore;
-
-    /// <summary>
-    /// Controlls the HelloAR example.
-    /// </summary>
-    public class ARController : MonoBehaviour
+    public class PokarGameplayController : MonoBehaviour
     {
         /// <summary>
-        /// The first-person camera being used to render the passthrough camera.
+        /// Passthrough camera object
         /// </summary>
         public Camera m_firstPersonCamera;
 
         /// <summary>
-        /// A prefab for tracking and visualizing detected planes.
+        /// Prefab representing planes being tracked by ARCore
         /// </summary>
         public GameObject m_trackedPlanePrefab;
 
         /// <summary>
-        /// A model to place when a raycast from a user touch hits a plane.
+        /// Model to use with events that should drop an object in world
         /// </summary>
-        public GameObject m_andyAndroidPrefab;
+        public GameObject m_dropObjectPrefab;
 
         /// <summary>
-        /// A gameobject parenting UI for displaying the "searching for planes" snackbar.
+        /// UI for display when system is looking for planes
         /// </summary>
         public GameObject m_searchingForPlaneUI;
 
@@ -142,7 +119,7 @@ namespace GoogleARCore.HelloAR
 
                 // Intanstiate an Andy Android object as a child of the anchor; it's transform will now benefit
                 // from the anchor's tracking.
-                var andyObject = Instantiate(m_andyAndroidPrefab, hit.Point, Quaternion.identity,
+                var andyObject = Instantiate(m_dropObjectPrefab, hit.Point, Quaternion.identity,
                     anchor.transform);
 
                 // Andy should look at the camera but still be flush with the plane.
