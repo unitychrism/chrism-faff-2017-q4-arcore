@@ -361,6 +361,7 @@ MonoBehaviour:
   m_trackedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be,
     type: 2}
   m_dropObjectPrefab: {fileID: 442756765}
+  m_CardDeck: {fileID: 0}
   m_searchingForPlaneUI: {fileID: 1133631540}
 --- !u!1001 &855965737
 Prefab:

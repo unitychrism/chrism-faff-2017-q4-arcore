@@ -24,6 +24,11 @@ namespace com.abstractron.Pokar
         public GameObject m_dropObjectPrefab;
 
         /// <summary>
+        /// The game object that should be repositioned whenever two finger touch happens
+        /// </summary>
+        public GameObject m_CardDeck;
+
+        /// <summary>
         /// UI for display when system is looking for planes
         /// </summary>
         public GameObject m_searchingForPlaneUI;
@@ -109,29 +114,46 @@ namespace com.abstractron.Pokar
 
         private void HandleTouchInput(Touch touch)
         {
+            var tapCount = touch.tapCount;
+            Debug.Log(string.Format("HandleTouchInput: {0} touches detected", touch.tapCount));
+
             TrackableHit hit;
             TrackableHitFlag raycastFilter = TrackableHitFlag.PlaneWithinBounds | TrackableHitFlag.PlaneWithinPolygon;
 
             if (Session.Raycast(m_firstPersonCamera.ScreenPointToRay(touch.position), raycastFilter, out hit))
             {
-                // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
-                // world evolves.
-                var anchor = Session.CreateAnchor(hit.Point, Quaternion.identity);
-
-                // Intanstiate an Andy Android object as a child of the anchor; it's transform will now benefit
-                // from the anchor's tracking.
-                var andyObject = Instantiate(m_dropObjectPrefab, hit.Point, Quaternion.identity,
-                    anchor.transform);
-
-                // Andy should look at the camera but still be flush with the plane.
-                andyObject.transform.LookAt(m_firstPersonCamera.transform);
-                andyObject.transform.rotation = Quaternion.Euler(0.0f,
-                    andyObject.transform.rotation.eulerAngles.y, andyObject.transform.rotation.z);
-
-                // Use a plane attachment component to maintain Andy's y-offset from the plane
-                // (occurs after anchor updates).
-                andyObject.GetComponent<PlaneAttachment>().Attach(hit.Plane);
+                switch(tapCount)
+                {
+                    case 1: // one tap: 
+                        Debug.Log("HandleTouchInput: One touch, do something");
+                        PlaceOneTouchObject(hit, touch);
+                        break;
+                    case 2:
+                        Debug.Log("HandleTouchInput: Two touches, find angle and place the board");
+                        break;
+                }
             }
+        }
+
+        private void PlaceOneTouchObject(TrackableHit hit, Touch touch)
+        {
+            // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
+            // world evolves.
+            var anchor = Session.CreateAnchor(hit.Point, Quaternion.identity);
+
+            // Intanstiate an Andy Android object as a child of the anchor; it's transform will now benefit
+            // from the anchor's tracking.
+            var andyObject = Instantiate(m_dropObjectPrefab, hit.Point, Quaternion.identity,
+                anchor.transform);
+
+            // Andy should look at the camera but still be flush with the plane.
+            andyObject.transform.LookAt(m_firstPersonCamera.transform);
+            andyObject.transform.rotation = Quaternion.Euler(0.0f,
+                andyObject.transform.rotation.eulerAngles.y, andyObject.transform.rotation.z);
+
+            // Use a plane attachment component to maintain Andy's y-offset from the plane
+            // (occurs after anchor updates).
+            andyObject.GetComponent<PlaneAttachment>().Attach(hit.Plane);
         }
 
         /// <summary>
