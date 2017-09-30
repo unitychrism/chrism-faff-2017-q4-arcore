@@ -60,5 +60,6 @@ MonoBehaviour:
   stackOffset: 0.001
   handSize: 5
   indicatorTime: 0.1
-  controller: {fileID: 0}
-  indicator: {fileID: 0}
+  controller: {fileID: 114011619947557450, guid: 246799d3961f243249a2edb2b0fab895,
+    type: 2}
+  indicator: {fileID: 23771152005160768, guid: ba3a81176a12d42c49dd024f2e6967c9, type: 2}

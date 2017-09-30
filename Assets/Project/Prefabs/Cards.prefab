@@ -256,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653224991598150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.086}
+  m_LocalPosition: {x: 0.02, y: 0.508, z: 0.003}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1}
   m_Children:
   - {fileID: 4438135039309862}
@@ -656,4 +656,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listView: {fileID: 114011619947557450}
-  hand: {fileID: 0}
+  hand: {fileID: 114467994095300834, guid: 227804438e5d642a0a0d71e090d6d4e6, type: 2}
